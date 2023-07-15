@@ -1,4 +1,7 @@
 # Grading-Calculator by Demin
+**IMPORTANT**
+Requires you to run the following command while in the directory of the program:
+```pip install -r requirements.txt```
 
 This is just a simple calculator I was asked to build for someone, publising updated code here. Includes a GUI and a commandline-based version of it.
 
