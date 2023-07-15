@@ -2,12 +2,20 @@
 import os
 from tkinter import *
 from tkinter import ttk
+import customtkinter as ctk
+'''
+Requires you to run
+
+pip install -r requirements.txt
+
+In the same directory.
+'''
 
 # Setup root window (Main window)
-root = Tk()
+root = ctk.CTk()
 root.title("Demin's Grading Calculator")
-root.resizable(False,False)
-root.geometry('380x50')
+root.resizable(False, False)
+root.geometry('335x100')
 
 # Required variables
 StudentDB = "StudentScore.txt"
@@ -68,14 +76,14 @@ def GradeUIWindow():
         GradeUI.destroy()
         
     # Defining the window
-    GradeUI = Toplevel()
+    GradeUI = ctk.CTkToplevel()
     GradeUI.title("Grades")
     GradeUI.resizable(False, False)
-    center_window(GradeUI, 300, 250)
+    center_window(GradeUI, 300, 300)
     
     # Create the entry fields
-    Name_entry = Entry(GradeUI)
-    Grade_Entry = Entry(GradeUI)
+    Name_entry = ctk.CTkEntry(GradeUI)
+    Grade_Entry = ctk.CTkEntry(GradeUI)
     
     # Define a function to run when clicked, this will get the student name and grade decimal number, and return a letter grade. Also writes to the Database.
     def onClick():
@@ -89,10 +97,10 @@ def GradeUIWindow():
         
     
     # Create buttons and text to place in the window
-    BottomText = Label(GradeUI, textvariable=LetterGrade)
-    EnterButton = Button(GradeUI, text="Submit score", command=onClick)
-    TopText = Label(GradeUI, text="Student Name")
-    MiddleText = Label(GradeUI, text="Decimal Grade")
+    BottomText = ctk.CTkLabel(GradeUI, textvariable=LetterGrade)
+    EnterButton = ctk.CTkButton(GradeUI, hover_color="Green" ,text="Submit score", command=onClick)
+    TopText = ctk.CTkLabel(GradeUI, text="Student Name")
+    MiddleText = ctk.CTkLabel(GradeUI, text="Decimal Grade")
     
     # Place everything on screen
     TopText.pack()
@@ -111,13 +119,13 @@ def GradedDBWindow():
     if GradedDBUI is not None and GradedDBUI.winfo_exists():
         GradedDBUI.destroy()
         
-    GradedDBUI = Toplevel()
+    GradedDBUI = ctk.CTkToplevel()
     GradedDBUI.title("Graded DB")
     GradedDBUI.resizable(False, False)
     center_window(GradedDBUI, 450, 400)
     
     # Create a text variable
-    text = Text(GradedDBUI)
+    text = ctk.CTkTextbox(GradedDBUI, height=400, width=450)
     text.pack()
     
     # Function of the graded DB window
@@ -133,26 +141,25 @@ def ClearDB():
     global ClearDBW
     if ClearDBW is not None and ClearDBW.winfo_exists():
         ClearDBW.destroy()
-    ClearDBW = Toplevel()
+    ClearDBW = ctk.CTkToplevel()
     ClearDBW.title("DB Purge")
-    ClearDBW.resizable(False, False)
     ClearDBW.geometry("100x20")
-    ClearLabel = Label(ClearDBW, text="CLEARED DB!")
+    ClearLabel = ctk.CTkLabel(ClearDBW, text="CLEARED DB!")
     with open(StudentDB, 'r+') as clearFile:
         clearFile.truncate(0)
     ClearLabel.pack()
 
 # Create Buttons
-Get_Grade_Button = ttk.Button(text="Grade", command=GradeUIWindow)
-Get_Grades = ttk.Button(text="Graded DB", command=GradedDBWindow)
-Clear = ttk.Button(text="ClearDB", command=ClearDB)
-Exit = ttk.Button(text="Exit", command=exit)
+Get_Grade_Button = ctk.CTkButton(root, text="Grade", hover_color="green", command=GradeUIWindow)
+Get_Grades = ctk.CTkButton(root, text="Graded DB", hover_color="green", command=GradedDBWindow)
+Clear = ctk.CTkButton(root, text="ClearDB", hover_color="green", command=ClearDB)
+Exit = ctk.CTkButton(root, text="Exit", hover_color="red", command=exit)
 
 # Place buttons
 Get_Grade_Button.place(x=10, y=10)
-Get_Grades.place(x=100, y=10)
-Clear.place(x=190, y=10)
-Exit.place(x=280, y=10)
+Get_Grades.place(x=180, y=10)
+Clear.place(x=10, y=50)
+Exit.place(x=180, y=50)
 
 
 # Run program
